@@ -1,0 +1,7 @@
+.bg-image {
+    background-image: url('https://blobauroranuevo.blob.core.windows.net/images3d/backloginBecas2.png');
+    background-size: cover; /* Cover the entire container */
+    background-position: left; /* Align image to the left */
+    background-repeat: no-repeat; /* Prevent repeating the image */
+   
+}

@@ -1,0 +1,21 @@
+.custom-button:disabled {
+    background-color: #ccc; /* Grey background */
+    color: #666; /* Dark grey text */
+    cursor: not-allowed; /* Not-allowed cursor */
+}
+.custom-button{
+border-radius: 4px;
+border: none;
+cursor: pointer;
+background-color: #4180C2;
+color: #fff;
+font-weight: 500;
+height: 40px;
+font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+&[disabled]{
+    color: black;
+    background-color: #ccc;
+    cursor: not-allowed;
+
+}
+}

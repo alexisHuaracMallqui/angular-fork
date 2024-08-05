@@ -1,0 +1,161 @@
+<div class="container py-4">
+    <div class="card" style="background-color: #F3F3F3;">
+        <div class="card-header">
+            <div class="row">
+                <div class="col d-flex align-items-center">
+                    <h6 class="my-auto">Editar Ciclo Académico</h6>
+                </div>
+                <div class="col d-flex justify-content-end"><button class="btn-close"
+                        routerLink="/concepto-modulo-academico"></button></div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label"><strong>Nombre Ciclo</strong></label>
+                    <input type="text" class="form-control" />
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label"><strong>Ciclo Malla Curricular</strong></label>
+                    <select class="form-select">
+                        <option selected disabled>Seleccionar una opción</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col"><label class="form-label"><strong>Fecha Inicio</strong></label>
+                            <input type="date" class="form-control" />
+                        </div>
+                        <div class="col"><label class="form-label"><strong>Fecha Fin</strong></label>
+                            <input type="date" class="form-control" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-6 mb-3">
+                    <label class="form-label"><strong>Constancia de Matrícula</strong></label>
+                    <input type="file" class="form-control" />
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12 col-md-6 mb-3">
+                    <div class="row">
+                        <div class="col"><label class="form-label"><strong>N° Cursos</strong></label>
+                            <input type="text" class="form-control" value="" disabled />
+                        </div>
+                        <div class="col"><label class="form-label"><strong>N° Créditos</strong></label>
+                            <input type="text" class="form-control" value="" disabled />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row mb-4">
+                <div class="col-4 col-md-6 d-flex align-items-center">
+                    <span class="my-auto"><strong>Cursos</strong></span>
+                </div>
+                <div class="col-8 col-md-6 d-flex justify-content-end">
+                    <button class="btn btn-outline-primary w-50" data-bs-toggle="modal"
+                        data-bs-target="#editCursoAcademico">Añadir
+                        Curso</button>
+                </div>
+            </div>
+
+            <div class="card mb-2">
+                <div class="card-body">
+                    <div class="container table-responsive">
+                        <table class="table table-bordered">
+                            <thead class="bg-light">
+
+                                <tr>
+                                    <th class="text-center">Curso</th>
+                                    <th class="text-center">Tipo</th>
+                                    <th class="text-center">Crédito</th>
+                                    <th></th>
+
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="text-center">Proyecto de Arquitectura I</td>
+                                    <td class="text-center">Obligatorio</td>
+                                    <td class="text-center">60</td>
+                                    <td class="text-center">
+                                        <button type="button" class="btn"
+                                            style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
+                                                class="bi bi-trash" style="color: red;"></i></button>
+
+                                    </td>
+                                </tr>
+
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <div class="d-flex justify-content-end">
+                <button class="btn btn-primary w-25 btn-sm" routerLink="/concepto-modulo-academico">Guardar Ciclo Académico</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="modal fade" id="editCursoAcademico" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
+    aria-hidden="true" data-bs-backdrop="static">
+    <div class="modal-dialog modal-md">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row w-100 g-0">
+                    <div class="col">
+                        <h6>Añadir Curso</h6>
+                    </div>
+                    <div class="col d-flex justify-content-end"><button class="btn-close"
+                            data-bs-dismiss="modal"></button></div>
+
+                </div>
+            </div>
+            <div class="modal-body">
+                <form action="">
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Ciclo: </label>
+                        <select class="form-select" name="" id="">
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="">Obligatorio</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label text-dark">Curso: </label>
+                        <select class="form-select" name="" id="">
+                            <option value="" selected disabled class="text-muted">Seleccione una opción</option>
+                            <option value="">Obligatorio</option>
+                        </select>
+                    </div>
+                    <div class="mb-4">
+                        <div class="row">
+                            <div class="col">
+                                <label class="form-label text-dark">Tipo: </label>
+                                <input type="text" class="form-control disabled" formControlName="" name="" value="" >
+                            </div>
+                            <div class="col">
+                                <label class="form-label text-dark">Crédito: </label>
+                                <input type="text" class="form-control disabled" formControlName="" name="" value="" >
+                            </div>
+                        </div>
+                    </div>
+                    <div class="d-grid mb-3">
+                        <button class="btn btn-primary">Añadir Curso</button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
