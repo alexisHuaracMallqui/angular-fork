@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { Router } from '@angular/router';
 
@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
   templateUrl: './register-form-final.component.html',
   styleUrl: './register-form-final.component.css'
 })
-export class RegisterFormFinalComponent {
+export class RegisterFormFinalComponent implements OnInit {
 
   /*
   selectedFile: File | null = null;
@@ -105,8 +105,11 @@ onSubmit(){
     }
   }
 
-  onSubmit() {
+  onSubmit(event: Event) {
+    event.preventDefault();
+
     const formDataFinal = new FormData();
+
 
     if (this.url) {
       formDataFinal.append('url', this.url, this.url.name)
@@ -131,16 +134,14 @@ onSubmit(){
       }
     }
 
-    this.http.post('http://localhost:3000/api/upload', formDataFinal)
-      .subscribe(response => {
-        console.log('Upload successful', response);
-      }, error => {
-        console.error('Upload error', error);
-      });
-
-    this.formDataService.clearFormData();
+    this.http.post('http://localhost:3000/solicitudes', formDataFinal).subscribe(response => {
+      console.log('Upload successful', response);
+    }, error => {
+      console.error('Upload error', error);
+    });
     alert("Form Data Saved Successfully");
-    this.router.navigate(['register-form'])
+    this.router.navigate(['register-form']);
+    this.formDataService.clearFormData();
   }
 
 

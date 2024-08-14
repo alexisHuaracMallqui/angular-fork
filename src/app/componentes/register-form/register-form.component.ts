@@ -176,7 +176,9 @@ export class RegisterFormComponent {
   }
 
 
-  saveInitialFields() {
+  saveInitialFields(event: Event) {
+    event.preventDefault();
+    
     let bodyData = {
       "nombre_completo": this.registrationForm.value.nombre_completo,
       "dni": this.registrationForm.value.dni,

@@ -84,7 +84,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Doc. Identidad *</label>
-                            <input type="number" class="form-control" formControlName="dni">
+                            <input type="text" class="form-control" formControlName="dni">
                             @if(registrationForm.get('dni')?.errors?.['required'] &&
                             registrationForm.get('dni')?.touched)
                             {<div class="mistake">
@@ -95,7 +95,7 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Celular *</label>
-                            <input type="number" class="form-control" formControlName="celular">
+                            <input type="text" class="form-control" formControlName="celular">
                             @if(registrationForm.get('celular')?.errors?.['required'] &&
                             registrationForm.get('celular')?.touched)
                             {<div class="mistake">
@@ -224,12 +224,12 @@
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Doc. Identidad</label>
-                            <input type="number" class="form-control" formControlName="apoderado_dni">
+                            <input type="text" class="form-control" formControlName="apoderado_dni">
                         </div>
 
                         <div class="col-md-4">
                             <label class="form-label" style="font-weight: bold;">N° Celular</label>
-                            <input type="number" class="form-control" formControlName="apoderado_celular">
+                            <input type="text" class="form-control" formControlName="apoderado_celular">
                         </div>
 
                         <div class="col-md-4">
@@ -242,7 +242,7 @@
                         </div>
 
                         <div class="col-md-6">
-                            <button type="submit" class="custom-button" (click)="saveInitialFields()"
+                            <button type="submit" class="custom-button" (click)="saveInitialFields($event)"
                                 style="width: 100%;" [disabled]="!registrationForm.valid">Siguiente</button>
                         </div>
 

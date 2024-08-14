@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { FormBuilder, Validators } from '@angular/forms';
@@ -9,7 +9,7 @@ import { FormBuilder, Validators } from '@angular/forms';
   templateUrl: './register-form-next.component.html',
   styleUrl: './register-form-next.component.css'
 })
-export class RegisterFormNextComponent {
+export class RegisterFormNextComponent implements OnInit {
   limaDistricts = [
     'Lima', 'Ancón', 'Ate', 'Barranco', 'Breña', 'Carabayllo', 'Chaclacayo', 'Chorrillos', 'Cieneguilla',
     'Comas', 'El Agustino', 'Independencia', 'Jesús María', 'La Molina', 'La Victoria', 'Lince', 'Los Olivos',
@@ -137,7 +137,7 @@ export class RegisterFormNextComponent {
   currentStudentID = "";
 
   registrationForm = this.fb.group({
-    nombre_institucion: ["", [Validators.required, Validators.minLength(1)]],
+    institucion_nombre: ["", [Validators.required, Validators.minLength(1)]],
     institucion_departamento: ["", [Validators.required]],
     institucion_provincia: ["", [Validators.required]],
     institucion_distrito: ["", [Validators.required]],
@@ -154,9 +154,11 @@ export class RegisterFormNextComponent {
   }
 
 
-  saveNextFields() {
+  saveNextFields(event: Event) {
+    event.preventDefault();
+    
     let bodyData = {
-      "nombre_institucion": this.registrationForm.value.nombre_institucion,
+      "institucion_nombre": this.registrationForm.value.institucion_nombre,
       "institucion_departamento": this.registrationForm.value.institucion_departamento,
       "institucion_provincia": this.registrationForm.value.institucion_provincia,
       "institucion_distrito": this.registrationForm.value.institucion_distrito,

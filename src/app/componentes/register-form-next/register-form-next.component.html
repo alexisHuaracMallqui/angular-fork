@@ -72,9 +72,9 @@
 
                         <div class="mb-3">
                             <label class="form-label" style="font-weight: bold;">Nombre de la Institución *</label>
-                            <input type="text" class="form-control" formControlName="nombre_institucion">
-                            @if(registrationForm.get('nombre_institucion')?.errors?.['required'] &&
-                            registrationForm.get('nombre_institucion')?.touched)
+                            <input type="text" class="form-control" formControlName="institucion_nombre">
+                            @if(registrationForm.get('institucion_nombre')?.errors?.['required'] &&
+                            registrationForm.get('institucion_nombre')?.touched)
                             {<div class="mistake">
                                 Por favor ingresa el nombre de la institución.
                             </div>}
@@ -179,7 +179,7 @@
                             <button class="custom-button" (click)="backtStep()" style="width: 100%;">Atras</button>
                         </div>
                         <div class="col-md-6">
-                            <button class="custom-button" style="width: 100%;" (click)="saveNextFields()"
+                            <button class="custom-button" style="width: 100%;" (click)="saveNextFields($event)"
                                 [disabled]="!registrationForm.valid">Siguiente</button>
                         </div>
 
