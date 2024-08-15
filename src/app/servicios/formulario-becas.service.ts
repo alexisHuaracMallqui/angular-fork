@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Becas_Solicitudes } from '../modelos/Becas_Solicitudes';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FormularioBecasService {
 
-
   formData: any = {};
 
   constructor() { }
-  
+
 
   setFormData(data: any) {
     this.formData = { ...this.formData, ...data };
@@ -23,4 +23,5 @@ export class FormularioBecasService {
   clearFormData() {
     this.formData = {};
   }
+
 }

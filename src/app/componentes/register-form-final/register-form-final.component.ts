@@ -1,7 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
 import { Router } from '@angular/router';
+import { catchError } from 'rxjs';
+import { of } from 'rxjs';
 
 @Component({
   selector: 'app-register-form-final',
@@ -69,8 +71,6 @@ onSubmit(){
 
   formData: any = {};
 
-
-
   constructor(private http: HttpClient, private formDataService: FormularioBecasService, private router: Router) { }
 
   ngOnInit() {
@@ -120,11 +120,11 @@ onSubmit(){
     };
 
     if (this.url_certificado) {
-      formDataFinal.append('url_certificado', this.url_certificado, this.url_certificado.name)
+     formDataFinal.append('url_certificado', this.url_certificado, this.url_certificado.name)
     };
 
     if (this.url_comprobante) {
-      formDataFinal.append('url_comprobante', this.url_comprobante, this.url_comprobante.name)
+     formDataFinal.append('url_comprobante', this.url_comprobante, this.url_comprobante.name)
     };
 
     // Append other form data from this.formData to formDataFinal
@@ -134,17 +134,23 @@ onSubmit(){
       }
     }
 
-    this.http.post('http://localhost:3000/solicitudes', formDataFinal).subscribe(response => {
-      console.log('Upload successful', response);
-    }, error => {
-      console.error('Upload error', error);
+
+    // Append other form data from this.formData
+    this.http.post('http://localhost:3000/solicitudes', this.formData).subscribe({
+      next: (response) => {
+        console.log('Upload successful', response);
+        alert("Form Data Saved Successfully");
+        this.router.navigate(['register-form']);
+        this.formDataService.clearFormData();
+      },
+      error: (error) => {
+        console.error('Upload error', error);
+      },
+      complete: () => {
+        console.log('Request completed');
+      }
     });
-    alert("Form Data Saved Successfully");
-    this.router.navigate(['register-form']);
-    this.formDataService.clearFormData();
   }
-
-
 
   backtStepFinal() {
     this.router.navigate(['register-form-next']);
