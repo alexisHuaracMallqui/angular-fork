@@ -144,7 +144,8 @@ export class RegisterFormNextComponent implements OnInit {
     institucion_direccion: ["", [Validators.required]],
     tipo_educacion: ["", [Validators.required]],
     promedio_academico: ['', [Validators.required]],
-    motivo_solicitud: ["", [Validators.required, Validators.minLength(1)]]
+    motivo_solicitud: ["", [Validators.required, Validators.minLength(1)]],
+    bydni: ''
   });
 
   constructor(private http: HttpClient, private router: Router, private formDataService: FormularioBecasService, private fb: FormBuilder) { }
@@ -156,7 +157,7 @@ export class RegisterFormNextComponent implements OnInit {
 
   saveNextFields(event: Event) {
     event.preventDefault();
-    
+
     let bodyData = {
       "institucion_nombre": this.registrationForm.value.institucion_nombre,
       "institucion_departamento": this.registrationForm.value.institucion_departamento,
@@ -192,13 +193,32 @@ export class RegisterFormNextComponent implements OnInit {
     this.formDataService.clearFormData();
   }
 
-  /*
-  finaltStep(){
-   this.router.navigate(['finalstep'])
-  }*/
-
   onSubmit() {
     console.log(this.registrationForm.value);
   }
+
+
+  getDni() {
+
+    const bydni = this.registrationForm.get('bydni')?.value;
+
+    if (!bydni) {
+      alert('El documento de identidad no existe');
+      return;
+    }
+
+    this.http.get(`http://localhost:3000/solicitudes/dni/${bydni}`).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.registrationForm.patchValue(response);
+        alert('Se cargo sus datos exitosamente');
+      },
+      error: (error) => {
+        console.error('Upload error', error);
+        alert('Intente de nuevo');
+      }
+    });
+  }
+
 
 }

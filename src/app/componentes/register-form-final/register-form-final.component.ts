@@ -77,14 +77,14 @@ export class RegisterFormFinalComponent implements OnInit {
 
 
     forkJoin(cargaArchivos).subscribe({
-      next: (responses: any[]) =>{
+      next: (responses: any[]) => {
         this.formData.url_doc_academico = responses[0].url;
         this.formData.url_dni = responses[1].url;
         this.formData.url_certificado_estudios = responses[2].url;
         this.formData.url_comprobando_domicilio = responses[3].url;
         console.log(this.formData);
 
-        // Append other form data from this.formData
+
         this.http.post('http://localhost:3000/solicitudes', this.formData).subscribe({
           next: (response) => {
             console.log('Solicitud creada', response);
@@ -105,7 +105,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
 
 
-    
+
   }
 
   backtStepFinal() {

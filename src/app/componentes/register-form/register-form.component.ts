@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormularioBecasService } from '../../servicios/formulario-becas.service';
+import { Becas_Solicitudes } from '../../modelos/Becas_Solicitudes';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-register-form',
@@ -154,12 +156,15 @@ export class RegisterFormComponent {
     apoderado_nombre: '',
     apoderado_dni: '',
     apoderado_celular: '',
-    apoderado_correo: ''
+    apoderado_correo: '',
+    bydni: ''
   });
 
   currentStudentID = "";
 
-  constructor(private formDataService: FormularioBecasService, private router: Router, private fb: FormBuilder) {
+
+
+  constructor(private formDataService: FormularioBecasService, private router: Router, private fb: FormBuilder, private http: HttpClient) {
 
   }
 
@@ -178,7 +183,7 @@ export class RegisterFormComponent {
 
   saveInitialFields(event: Event) {
     event.preventDefault();
-    
+
     let bodyData = {
       "nombre_completo": this.registrationForm.value.nombre_completo,
       "dni": this.registrationForm.value.dni,
@@ -207,4 +212,32 @@ export class RegisterFormComponent {
     console.log(this.registrationForm.value);
   }
 
+
+  getDni() {
+
+    const bydni = this.registrationForm.get('bydni')?.value;
+
+    if (!bydni) {
+      alert('El documento de identidad no existe');
+      return;
+    }
+
+    this.http.get(`http://localhost:3000/solicitudes/dni/${bydni}`).subscribe({
+      next: (response: any) => {
+        console.log(response);
+        this.registrationForm.patchValue(response);
+        alert('Se cargo sus datos exitosamente');
+      },
+      error: (error) => {
+        console.error('Upload error', error);
+        alert('Intente de nuevo');
+      }
+    });
+  }
+
 }
+
+
+
+
+

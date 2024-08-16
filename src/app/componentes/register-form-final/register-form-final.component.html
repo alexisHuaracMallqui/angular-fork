@@ -113,9 +113,9 @@
                             <button class="custom-button" style="width: 100%;" (click)="backtStepFinal()">Atras</button>
                         </div>
                         <div class="col-md-6">
-                            <button class="custom-button" style="width: 100%;" (click)="onSubmit($event)"
-                                type="submit">Solicitar
-                                Beca</button>
+                            <button class="custom-button" style="width: 100%;" (click)="onSubmit($event)" type="submit"
+                                [disabled]="!url_evidencia.files?.length || !url_dni.files?.length || !url_certificado.files?.length || !url_comprobante.files?.length ">Solicitar
+                                Becas</button>
                         </div>
                     </form>
 
@@ -127,7 +127,6 @@
 
 </div>
 
-{{url_evidencia.files?.length}}
-<pre>{{ formData | json }}</pre>
 
-<!--    [disabled]="!url_evidencia.files?.length || !url_dni.files?.length || !url_certificado.files?.length || !url_comprobante.files?.length "-->
+
+<pre>{{ formData | json }}</pre>

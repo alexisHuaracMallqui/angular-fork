@@ -52,8 +52,8 @@
 
 
             <div class="d-flex align-items-center flex-column" style="height: 410px;">
-                <button class="btn btn-outline-primary col-md-10 mt-auto btn-sm"
-                    (click)="openDialog()">Subsanación</button>
+                <button class="btn btn-outline-primary col-md-10 mt-auto btn-sm" data-bs-toggle="modal"
+                    data-bs-target="#searchByDni">Subsanación</button>
             </div>
 
 
@@ -173,6 +173,37 @@
                             {<div class="mistake">
                                 Por favor ingrese el motivo de su solicitud.
                             </div>}
+                        </div>
+
+                        <div class="modal fade" id="searchByDni" tabindex="-1" role="dialog"
+                            aria-labelledby="myLargeModalLabel" aria-hidden="true" data-bs-backdrop="static">
+                            <div class="modal-dialog modal-md">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="row w-100 g-0">
+                                            <div class="col">
+                                                <h6>Subsanación</h6>
+                                            </div>
+                                            <div class="col d-flex justify-content-end"><button class="btn-close"
+                                                    data-bs-dismiss="modal"></button></div>
+
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="col mb-3">
+                                            <label class="form-label" style="font-weight: bold;">N° Doc.
+                                                Identidad</label>
+                                            <input type="text" class="form-control" formControlName="bydni">
+                                        </div>
+                                        <div class="d-grid mb-3">
+                                            <button class="btn btn-primary" data-bs-dismiss="modal" type="submit"
+                                                (click)="getDni()">Cargar Data</button>
+                                        </div>
+
+                                    </div>
+
+                                </div>
+                            </div>
                         </div>
 
                         <div class="col-md-6">
