@@ -85,12 +85,16 @@ export class RegisterFormFinalComponent implements OnInit {
         console.log(this.formData);
 
 
-        this.http.post('http://localhost:3000/solicitudes', this.formData).subscribe({
-          next: (response) => {
-            console.log('Solicitud creada', response);
-            alert("Form Data Saved Successfully");
-            this.router.navigate(['register-form']);
-            this.formDataService.clearFormData();
+        this.http.post('http://localhost:3000/solicitudes/upsert', this.formData).subscribe({
+          next: (response: any) => {
+            if (response.value == '0') {
+              alert(response.message);  
+            } else {
+              console.log('Solicitud creada', response);
+              alert("Form Data Saved Successfully");
+              this.router.navigate(['register-form']);
+              this.formDataService.clearFormData();
+            }
           },
           error: (error) => {
             console.error('Upload error', error);
