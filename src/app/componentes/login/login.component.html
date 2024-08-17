@@ -14,21 +14,21 @@
   
   
   <div class="col-8 mx-auto">
-  <form action="">
+  <form action="" (ngSubmit)="onLogin()">
       <div class="mb-3">
           <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Group 10.png" alt="">
       </div>
       <div class="mb-3">
-          <label class="form-label" for=""><strong>Usuario o Correo</strong></label>
-          <input class="form-control" type="email" name="">
+          <label class="form-label" for=""><strong>DNI</strong></label>
+          <input [(ngModel)]="dni" name="dni" required class="form-control" type="text">
       </div>
       <div class="mb-5">
           <label class="form-label" for=""><strong>Contraseña</strong></label>
-          <input class="form-control" type="password" name="">
+          <input class="form-control" type="password" [(ngModel)]="clave" name="clave" required>
       </div>
     
       <div class="d-grid mb-3">
-      <button class="btn text-white" style="background-color: #4180C2;" (click)="onDetalle()">Ingresar</button>
+      <button class="btn text-white" style="background-color: #4180C2;" type="submit" >Ingresar</button>
       </div>
   </form>
   </div>

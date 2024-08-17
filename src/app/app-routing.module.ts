@@ -13,11 +13,13 @@ import { RegisterFormComponent } from './componentes/register-form/register-form
 import { RegisterFormNextComponent } from './componentes/register-form-next/register-form-next.component';
 import { RegisterFormFinalComponent } from './componentes/register-form-final/register-form-final.component';
 
+import { authGuard } from './servicios/guard/auth.guard';
+
 const routes: Routes = [
 {path: '', component:LoginComponent},
 {path: 'informacion', component: InformacionBecaComponent},
 {path: 'informacion-view',component:InformacionBecaViewComponent},
-{path: 'detalle', component: DetalleAcademicoComponent},
+{path: 'detalle', component: DetalleAcademicoComponent, canActivate: [authGuard]},
 {path: 'addmodulo', component: NuevoCicloComponent},
 {path: 'add-modulo-academico', component: NuevoCicloAcademicoComponent},
 {path: 'edit-modulo-academico', component: EditarCicloAcademicoComponent},

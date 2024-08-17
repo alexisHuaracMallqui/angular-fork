@@ -1,6 +1,6 @@
 import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
-
+import { AuthService } from '../../servicios/auth/auth.service';
 
 @Component({
   selector: 'app-detalle-academico',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class DetalleAcademicoComponent implements OnInit{
 
 isChecked: boolean = false; 
-constructor(private router:Router) {}
+constructor(private router:Router, private authServide: AuthService) {}
 
 ngOnInit(): void {
   this.showModal();
@@ -38,6 +38,10 @@ showModal() {
   
   onNavigateInfo(){
     this.router.navigate(['informacion'])
+  }
+
+  logout() {
+    this.authServide.logout()
   }
 
 }
