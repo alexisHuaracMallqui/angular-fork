@@ -1,6 +1,7 @@
 import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../servicios/auth/auth.service';
+import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
 
 @Component({
   selector: 'app-detalle-academico',
@@ -11,11 +12,21 @@ import { AuthService } from '../../servicios/auth/auth.service';
 
 export class DetalleAcademicoComponent implements OnInit{
 
+solicitud: any;
+
 isChecked: boolean = false; 
-constructor(private router:Router, private authServide: AuthService) {}
+
+constructor(
+  private router:Router,
+  private authService: AuthService,
+  private solicitudService : SolicitudService
+) {}
 
 ngOnInit(): void {
-  this.showModal();
+  this.solicitud = this.solicitudService.getSolicitudData();
+  if(this.solicitud.contratoBecario == '0' ) {
+    this.showModal(); 
+  }
 }
 
 showModal() {
@@ -41,7 +52,17 @@ showModal() {
   }
 
   logout() {
-    this.authServide.logout()
+    this.authService.logout()
+  }
+
+  aceptarContrato(solicitudData: any){
+    solicitudData.contratoBecario = '1';
+    console.log(solicitudData);
+    this.solicitudService.updateSolicitud(solicitudData).subscribe({
+      next: (response: any) => {
+        console.log(response);
+      }
+    })
   }
 
 }

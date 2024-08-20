@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { SolicitudService } from '../solicitud/solicitud.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,15 +11,25 @@ export class AuthService {
 
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient, private router: Router) { }
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+    private solicitudService: SolicitudService
+  ) { }
 
   login(dni: string, clave: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/login`, {dni, clave}).pipe(
       tap((response : any) => {
         if(response && response.token) {
           localStorage.setItem('token', response.token);
-          console.log(response);
-          console.log(localStorage);
+          
+          this.http.get(`${this.apiUrl}/solicitudes/dni/${dni}`,{
+            headers: new HttpHeaders({
+              'Authorization':`Bearer ${response.token}`
+            })
+          }).subscribe(solicitudData =>{
+            this.solicitudService.setSolicitudData(solicitudData);
+          })
         } else {
           console.error('Token not found in the response');
         }
@@ -37,6 +48,7 @@ export class AuthService {
 
   logout() {
     localStorage.removeItem('token');
+    this.solicitudService.clearSolicitudData();
     this.router.navigate(['/'])
   }
 }

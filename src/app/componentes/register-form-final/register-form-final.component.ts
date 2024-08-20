@@ -82,6 +82,8 @@ export class RegisterFormFinalComponent implements OnInit {
         this.formData.url_dni = responses[1].url;
         this.formData.url_certificado_estudios = responses[2].url;
         this.formData.url_comprobando_domicilio = responses[3].url;
+        this.formData.EvaluacionEstado = 'Enviado';
+        this.formData.contratoBecario = '0';
         console.log(this.formData);
 
 
@@ -91,8 +93,8 @@ export class RegisterFormFinalComponent implements OnInit {
               alert(response.message);  
             } else {
               console.log('Solicitud creada', response);
-              alert("Form Data Saved Successfully");
-              this.router.navigate(['register-form']);
+              alert("Solicitud enviada correctamente.");
+              this.router.navigate(['/']);
               this.formDataService.clearFormData();
             }
           },
@@ -103,7 +105,7 @@ export class RegisterFormFinalComponent implements OnInit {
 
       },
       error: (error) => {
-        console.error('Error subiendo archivos', error)
+        console.error('Error subiendo archivos', error);
       }
     })
 
