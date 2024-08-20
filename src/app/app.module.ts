@@ -17,6 +17,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormNextComponent } from './componentes/register-form-next/register-form-next.component';
 import { RegisterFormFinalComponent } from './componentes/register-form-final/register-form-final.component';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { RegisterFormFinalComponent } from './componentes/register-form-final/re
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgxCaptchaModule
   ],
   providers: [
     provideAnimationsAsync()
