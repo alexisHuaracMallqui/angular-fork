@@ -9,7 +9,7 @@ export class FormularioBecasService {
 
   formData: any = {};
 
-  constructor(private http: HttpClient) { }
+  constructor() { }
 
 
   setFormData(data: any) {

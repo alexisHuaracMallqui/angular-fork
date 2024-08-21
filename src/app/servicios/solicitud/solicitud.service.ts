@@ -7,13 +7,13 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SolicitudService {
 
-  private solicitudData : any;
+  private solicitudData: any;
   private apiUrl = 'http://localhost:3000/solicitudes';
 
 
   constructor(private http: HttpClient) {
-    
-   }
+
+  }
 
   //setear data solicitud después del login
   setSolicitudData(data: any) {
@@ -39,7 +39,7 @@ export class SolicitudService {
 
   //actualizar datos solicitud
   updateSolicitud(data: any): Observable<any> {
-    return this.http.put(`${this.apiUrl}/${data.id}`,data);
+    return this.http.put(`${this.apiUrl}/${data.id}`, data);
   };
 
   getSolicitudByDni(dni: string): Observable<any> {
