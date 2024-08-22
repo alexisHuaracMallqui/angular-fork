@@ -40,9 +40,7 @@
                             </div>
                             }
                         </div>
-                        <div class="mb-3">
-                            <a href="#" class="link-primary" data-bs-toggle="modal" data-bs-target="#updateUser">¿Olvidaste tu contraseña?</a>
-                        </div>
+                    
                         <div class="mb-3">
                             <ngx-recaptcha2 #captchaElem [siteKey]="siteKey" formControlName="recaptcha">
                             </ngx-recaptcha2>
@@ -72,36 +70,3 @@
 </div>
 
 
-<div class="modal fade" id="updateUser" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-    aria-hidden="true" data-bs-backdrop="static">
-    <div class="modal-dialog modal-md">
-        <div class="modal-content">
-            <div class="modal-header">
-                <div class="row w-100 g-0">
-                    <div class="col">
-                        <h6>Actualizar Contraseña</h6>
-                    </div>
-                    <div class="col d-flex justify-content-end"><button class="btn-close"
-                            data-bs-dismiss="modal"></button></div>
-
-                </div>
-            </div>
-            <div class="modal-body">
-                <form action="">
-                    <div class="mb-3">
-                        <label class="form-label text-dark">DNI: </label>
-                        <input type="text" class="form-control" formControlName="" name="" value="">
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label text-dark">Nueva Contraseña: </label>
-                        <input type="password" class="form-control" formControlName="" name="" value="">
-                    </div>
-                    <div class="d-grid mb-2">
-                        <button class="btn btn-primary">Guardar Cambios</button>
-                    </div>
-                </form>
-            </div>
-
-        </div>
-    </div>
-</div>

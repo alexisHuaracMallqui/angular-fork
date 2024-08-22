@@ -18,16 +18,16 @@ export class AuthService {
   ) { }
 
   login(dni: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/login`, {dni, clave}).pipe(
-      tap((response : any) => {
-        if(response && response.token) {
+    return this.http.post(`${this.apiUrl}/login`, { dni, clave }).pipe(
+      tap((response: any) => {
+        if (response && response.token) {
           localStorage.setItem('token', response.token);
-          
-          this.http.get(`${this.apiUrl}/solicitudes/dni/${dni}`,{
+
+          this.http.get(`${this.apiUrl}/solicitudes/dni/${dni}`, {
             headers: new HttpHeaders({
-              'Authorization':`Bearer ${response.token}`
+              'Authorization': `Bearer ${response.token}`
             })
-          }).subscribe(solicitudData =>{
+          }).subscribe(solicitudData => {
             this.solicitudService.setSolicitudData(solicitudData);
           })
         } else {
@@ -38,11 +38,11 @@ export class AuthService {
   }
 
   registrar(dni: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/registrar`, {dni, clave})
+    return this.http.post(`${this.apiUrl}/registrar`, { dni, clave })
   }
 
-  actualizarClave(dni: string, clave: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/actualizar-clave`, {dni, clave})
+  actualizarClave(dni: string, antiguaClave: string, nuevaClave: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/actualizar-clave`, { dni, antiguaClave, nuevaClave })
   }
 
 
