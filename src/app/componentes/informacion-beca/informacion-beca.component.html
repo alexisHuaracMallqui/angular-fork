@@ -59,14 +59,15 @@
                     <div class="col-12 col-md-8">
                         <div class="card-body">
 
-                            <form>
+                            <form [formGroup]="formInfoPeriodo" (ngSubmit)="updateInformacionBecario()">
+
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-3">
                                         <label class="form-label" style="color: #636363 ;">Nombres y Apellidos: </label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" class="form-control disabled" formControlName="" name=""
-                                            value="Martín Smith Zambrano Guadalupe">
+                                        <input type="text" class="form-control" formControlName="nombre_completo" name="nombre_completo"
+                                            id="nombre_completo" readonly>
                                     </div>
 
                                 </div>
@@ -77,8 +78,8 @@
                                         <label class="form-label" style="color: #636363;">N° Doc. Identidad: </label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="number" class="form-control disabled" formControlName="" name=""
-                                            value="75009213">
+                                        <input type="text" class="form-control" formControlName="dni" id="dni" name="dni"
+                                            readonly>
                                     </div>
                                 </div>
 
@@ -87,8 +88,8 @@
                                         <label class="form-label" style="color: #636363;">Institución: </label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="text" class="form-control disabled" formControlName="" name=""
-                                            value="UNIVERSIDAD CENTRAL II">
+                                        <input type="text" class="form-control disabled"
+                                            formControlName="institucion_nombre" name="institucion_nombre" readonly id="institucion_nombre">
                                     </div>
                                 </div>
 
@@ -97,56 +98,60 @@
                                         <div class="row">
                                             <div class="col"><label class="form-label" style="color: #636363;">Fecha
                                                     Inicio:</label></div>
-                                            <div class="col"><input type="date" class="form-control" formControlName=""
-                                                    name=""></div>
+                                            <div class="col"><input type="date" class="form-control" formControlName="fecha_inicio"
+                                                    name="fecha_inicio" id="fecha_inicio"></div>
                                         </div>
                                     </div>
                                     <div class="col">
                                         <div class="row">
                                             <div class="col"><label class="form-label" style="color: #636363;">Fecha Fin
                                                     Estimada:</label></div>
-                                            <div class="col"><input type="date" class="form-control" formControlName=""
-                                                    name=""></div>
+                                            <div class="col"><input type="date" class="form-control" formControlName="fecha_fin_estimada"
+                                                    name="fecha_fin_estimada" id="fecha_fin_estimada"></div>
                                         </div>
                                     </div>
                                 </div>
 
 
-
+                                 <!--
                                 <div class="row mb-3">
                                     <div class="col-12 col-md-3" style="color: #636363;"><label
                                             class="form-label">Contrato: </label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="file" class="form-control" />
+                                        <input type="file" class="form-control"  formControlName="contratoBecario" name="contratoBecario" #contratoBecario (change)="onFileChange_contratoBecario($event)" id="contratoBecario"/>
                                     </div>
 
                                 </div>
 
 
                                 <div class="row mb-3">
-                                    <div class="col-12 col-md-3" style="color: #636363;"><label class="form-label">Malla
+                                    <div class="col-12 col-md-3" style="color: #636363;">
+                                        <label class="form-label">Malla
                                             Curricular: </label>
                                     </div>
                                     <div class="col-12 col-md-9">
-                                        <input type="file" class="form-control" />
+                                        <input type="file" class="form-control" formControlName="id_malla_curricular" name="id_malla_curricular" #id_malla_curricular (change)="onFileChange_id_malla_curricular($event)" id="id_malla_curricular"/>
                                     </div>
 
                                 </div>
 
+                                <div class="col-12 col-md-4">
 
+                                    <div class="col-12 col-md-9">
+                                        <input type="file" class="form-control" formControlName="url_foto_estudiante" name="url_foto_estudiante" #url_foto_estudiante (change)="onFileChange_url_foto_estudiante($event)" id="url_foto_estudiante"/>
+                                        <label class="form-label text-center">
+                                            Foto Estudiante </label>
+                                    </div>
+
+                                </div>
+-->
 
                             </form>
 
                         </div>
                     </div>
-                    <div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
-                        <div class="card-body">
-                            <h5 class="card-title text-center text-primary"
-                                style="color: rgba(65, 128, 194, 1); font-size:x-large;">16/20</h5>
-                            <h6 class="card-subtitle text-center text-muted">Promedio de Notas</h6>
-                        </div>
-                    </div>
+
                 </div>
             </div>
 
@@ -196,14 +201,14 @@
                                 </table>
 
                             </div>
-                        
+
                         </div>
                     </div>
 
                 </div>
                 <div class="card-footer">
                     <div class="d-flex justify-content-end">
-                        <button class="btn btn-primary" routerLink="/informacion-view">Guardar Información</button>
+                        <button class="btn btn-primary" routerLink="/informacion-view" type="submit">Guardar Información</button>
                     </div>
                 </div>
             </div>
@@ -253,3 +258,4 @@
     </div>
 </div>
 
+{{solicitud | json}}

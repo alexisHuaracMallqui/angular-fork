@@ -86,18 +86,20 @@ export class DetalleAcademicoComponent implements OnInit {
     const dni: string = this.formUpdateLogin.get('dni')?.value as string;
     const antiguaClave: string = this.formUpdateLogin.get('antiguaClave')?.value as string;
     const nuevaClave: string = this.formUpdateLogin.get('nuevaClave')?.value as string;
-    
+
 
 
     this.authService.actualizarClave(dni, antiguaClave, nuevaClave).subscribe({
       next: (response: any) => {
         console.log('Clave actualizada correctamente', response);
 
-
       },
       error: (error: any) => {
         console.error('Error actualizando clave', error);
-
+        console.log('---');
+        console.log(error.error.message);
+     
+   
       }
     });
   }

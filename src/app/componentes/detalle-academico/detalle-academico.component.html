@@ -282,18 +282,20 @@
                 <form [formGroup]="formUpdateLogin">
                     <div class="mb-3">
                         <label class="form-label text-dark">DNI: </label>
-                        <input type="text" class="form-control" formControlName="dni" name="" value="" readonly>
+                        <input type="text" class="form-control" formControlName="dni" name="" value="" readonly >
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Contraseña Actual: </label>
-                        <input type="password" class="form-control" formControlName="antiguaClave" name="" value="">
+                        <input type="password" class="form-control" formControlName="antiguaClave" name="antiguaClave" value="">
                         @if(formUpdateLogin.get('antiguaClave')?.errors?.['required'] &&
                         formUpdateLogin.get('antiguaClave')?.touched)
                         {<div class="mistake">
                             Por favor coloque su contraseña actual correctamente
                         </div>
                         }
+                
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label text-dark">Nueva Contraseña: </label>
                         <input type="password" class="form-control" formControlName="nuevaClave" name="" value="">
@@ -305,7 +307,8 @@
                         }
                     </div>
                     <div class="d-grid mb-2">
-                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid" (click)="updateLogin()">Guardar Cambios</button>
+                        <button class="btn btn-primary" [disabled]="!formUpdateLogin.valid"
+                            (click)="updateLogin()" data-bs-dismiss="modal">Guardar Cambios</button>
                     </div>
                 </form>
             </div>
@@ -314,4 +317,4 @@
     </div>
 </div>
 
-<pre>{{solicitud| json}}</pre>
+{{solicitud| json}}

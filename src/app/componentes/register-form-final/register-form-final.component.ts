@@ -74,8 +74,6 @@ export class RegisterFormFinalComponent implements OnInit {
       this.http.post('http://localhost:3000/upload', this.url_comprobante)
     ]
 
-
-
     forkJoin(cargaArchivos).subscribe({
       next: (responses: any[]) => {
         this.formData.url_doc_academico = responses[0].url;
@@ -90,7 +88,7 @@ export class RegisterFormFinalComponent implements OnInit {
         this.http.post('http://localhost:3000/solicitudes/upsert', this.formData).subscribe({
           next: (response: any) => {
             if (response.value == '0') {
-              alert(response.message);  
+              alert(response.message);
             } else {
               console.log('Solicitud creada', response);
               alert("Solicitud enviada correctamente.");
