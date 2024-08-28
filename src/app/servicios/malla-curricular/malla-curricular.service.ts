@@ -14,7 +14,7 @@ export class MallaCurricularService {
   //Funciones CICLOS de malla curricular
   // Retornar ciclos de malla por solicitud
   getCiclosMallaBySolicitud(id_solicitud: number) {
-    return this.http.get(`${this.apiUrl}/ciclos/solicitud/${id_solicitud}`);
+    return this.http.get<CicloMalla[]>(`${this.apiUrl}/ciclos/solicitud/${id_solicitud}`);
   }
 
   //Retornar ciclo de malla
