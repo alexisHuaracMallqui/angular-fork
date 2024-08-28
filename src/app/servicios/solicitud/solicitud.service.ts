@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -9,32 +9,33 @@ export class SolicitudService {
 
   private solicitudData: any;
   private apiUrl = 'http://localhost:3000/solicitudes';
-
+  private solicitudDataSubject: BehaviorSubject<any>;
 
   constructor(private http: HttpClient) {
+    const storedSolicitudData = localStorage.getItem('solicitudData');
+    this.solicitudDataSubject = new BehaviorSubject<any>(storedSolicitudData ? JSON.parse(storedSolicitudData) : null);
 
   }
 
   //setear data solicitud después del login
   setSolicitudData(data: any) {
-    this.solicitudData = data;
+    //this.solicitudData = data;
+    this.solicitudDataSubject.next(data);
     localStorage.setItem('solicitudData', JSON.stringify(data));
+    
   }
 
 
   //obtener datos solicitud
-  getSolicitudData() {
-    const storedSolicitudData = localStorage.getItem('solicitudData');
-    if (storedSolicitudData) {
-      return JSON.parse(storedSolicitudData);
-    }
+  getSolicitudData(): Observable<any> {
+   return this.solicitudDataSubject.asObservable();
   }
 
 
   //limpiar data solicitud
   clearSolicitudData() {
     this.solicitudData = null;
-    localStorage.removeItem('userData');
+    localStorage.removeItem('solicitudData');
   }
 
   //actualizar datos solicitud

@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, viewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, ElementRef, OnInit, viewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../servicios/auth/auth.service';
 import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
@@ -25,23 +25,25 @@ export class DetalleAcademicoComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
     private solicitudService: SolicitudService,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private cdr: ChangeDetectorRef
 
   ) {
 
   }
 
   ngOnInit(): void {
-    this.solicitud = this.solicitudService.getSolicitudData();
-
-    if (this.solicitud) {
-      this.formUpdateLogin.patchValue({
-        dni: this.solicitud.dni
-      });
-    }
-    if (this.solicitud.contratoBecario == '0') {
-      this.showModal();
-    }
+    this.solicitudService.getSolicitudData().subscribe(data => {
+      this.solicitud = data;
+      if (this.solicitud) {
+        this.formUpdateLogin.patchValue({
+          dni: this.solicitud.dni
+        });
+      }
+      if (this.solicitud.contratoBecario == '0') {
+        this.showModal();
+      }
+    });
 
   }
 

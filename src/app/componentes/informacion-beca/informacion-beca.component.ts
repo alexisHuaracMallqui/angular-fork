@@ -33,16 +33,18 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.solicitud = this.solicitudService.getSolicitudData();
-    if (this.solicitud) {
-      this.formInfoPeriodo.patchValue({
-        dni: this.solicitud.dni,
-        nombre_completo: this.solicitud.nombre_completo,
-        institucion_nombre: this.solicitud.institucion_nombre,
-        fecha_inicio: this.solicitud.fecha_inicio,
-        fecha_fin_estimada: this.solicitud.fecha_fin_estimada
-      });
-    }
+    this.solicitudService.getSolicitudData().subscribe(data => {
+      this.solicitud = data;
+      if (this.solicitud) {
+        this.formInfoPeriodo.patchValue({
+          dni: this.solicitud.dni,
+          nombre_completo: this.solicitud.nombre_completo,
+          institucion_nombre: this.solicitud.institucion_nombre,
+          fecha_inicio: this.solicitud.fecha_inicio,
+          fecha_fin_estimada: this.solicitud.fecha_fin_estimada
+        });
+      }
+    });
   }
 
   onFileChange_url_foto_estudiante(event: Event) {
