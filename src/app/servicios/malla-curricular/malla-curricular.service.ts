@@ -45,7 +45,7 @@ export class MallaCurricularService {
 
   // Retornar cursos de malla por ciclo
   getCursoMallaByCiclo(id_ciclo: number) {
-    return this.http.get(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
+    return this.http.get<CursoMalla[]>(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
   }
 
   // Crear cursos de malla
