@@ -2,14 +2,18 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { CicloMalla } from '../../modelos/ciclo-malla';
 import { CursoMalla } from '../../modelos/curso-malla';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class MallaCurricularService {
+
+  private cursoMallaArray: CursoMalla[] = [];
+
   private apiUrl = 'http://localhost:3000/malla';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   //Funciones CICLOS de malla curricular
   // Retornar ciclos de malla por solicitud
@@ -23,9 +27,13 @@ export class MallaCurricularService {
   }
 
   //Crear ciclo malla
-  createCicloMalla(ciclo: CicloMalla) {
+  /*createCicloMalla(ciclo: CicloMalla) {
     return this.http.post(`${this.http}/ciclo`, ciclo);
+  }*/
+  createCicloMalla(ciclo: CicloMalla) {
+    return this.http.post<CicloMalla>(`${this.apiUrl}/ciclo`, ciclo);
   }
+
 
   //Actualiza ciclo malla
   updateCicloMalla(ciclo: CicloMalla) {
@@ -67,4 +75,45 @@ export class MallaCurricularService {
   deleteCursoMallaByCiclo(id_ciclo: number) {
     return this.http.delete(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
   }
+
+  //Temporal almacenamiento
+
+  // Agregar Record al Array
+  addCursoMallaTemporal(cursoMalla: CursoMalla) {
+    this.cursoMallaArray.push(cursoMalla);
+  }
+
+  // Obtener todo de mi Array
+  getCursoMallasTemporal(): CursoMalla[] {
+    return this.cursoMallaArray;
+  }
+
+
+  // Encontrar mi instancia por index
+  getCursoMallaTemporal(index: number): CursoMalla | undefined {
+    return this.cursoMallaArray[index];
+  }
+
+  // Actualizar mi instancia en el array
+  updateCursoMallaTemporal(index: number, updatedCursoMalla: CursoMalla) {
+    if (index >= 0 && index < this.cursoMallaArray.length) {
+      this.cursoMallaArray[index] = updatedCursoMalla;
+    }
+  }
+
+
+  // Limpiar todo mi array
+  clearCursoMallasTemporal() {
+    this.cursoMallaArray = [];
+  }
+
+  //Eliminar instancia por index 
+  deleteCursoMallaTemporal(index: number) {
+    if (index >= 0 && index < this.cursoMallaArray.length) {
+      this.cursoMallaArray.splice(index, 1);
+    }
+  }
+
+
+
 }

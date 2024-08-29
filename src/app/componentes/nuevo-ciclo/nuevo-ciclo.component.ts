@@ -1,10 +1,111 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormControl } from '@angular/forms';
+import { CursoMalla } from '../../modelos/curso-malla';
+import { MallaCurricularService } from '../../servicios/malla-curricular/malla-curricular.service';
+import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
+import { CicloMalla } from '../../modelos/ciclo-malla';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-nuevo-ciclo',
   templateUrl: './nuevo-ciclo.component.html',
   styleUrl: './nuevo-ciclo.component.css'
 })
-export class NuevoCicloComponent {
+export class NuevoCicloComponent implements OnInit {
+
+
+  newCursoMalla: CursoMalla = new CursoMalla(0, '', 0, 0, '');
+  editingIndex: number | null = null;
+  solicitud: any;
+  nombre: string = '';
+
+
+
+  constructor(private cursoMallaService: MallaCurricularService, private solicitudService: SolicitudService) {
+
+  }
+
+  ngOnInit(): void {
+    this.solicitud = this.solicitudService.getSolicitudData();
+
+  }
+
+
+  saveCursoMalla() {
+    if (this.editingIndex !== null) {
+      // Actualizamos
+      this.cursoMallaService.updateCursoMallaTemporal(this.editingIndex, this.newCursoMalla);
+      this.editingIndex = null; 
+    } else {
+      // Agregamos
+      if (this.newCursoMalla.Nombre && this.newCursoMalla.creditos > 0 && this.newCursoMalla.tipo) {
+        this.cursoMallaService.addCursoMallaTemporal(this.newCursoMalla);
+      } else {
+        console.error('Por favor completar el formulario');
+      }
+    }
+    this.newCursoMalla = new CursoMalla(0, '', 0, 0, '');
+  }
+
+
+  editCursoMalla(index: number) {
+    const cursoMalla = this.cursoMallaService.getCursoMallaTemporal(index);
+    if (cursoMalla) {
+      this.newCursoMalla = { ...cursoMalla }; // Copy the record to the form
+      this.editingIndex = index; // Set the index for editing
+    }
+  }
+
+  getCursoMallas(): CursoMalla[] {
+    return this.cursoMallaService.getCursoMallasTemporal();
+  }
+
+  deleteCursoMalla(index: number) {
+    this.cursoMallaService.deleteCursoMallaTemporal(index);
+  }
+
+  createAndSaveCiclo() {
+    if (this.solicitud) {
+      // Step 1: Create the CicloMalla
+      const newCiclo = new CicloMalla(0, 0, this.nombre, this.solicitud.id);
+      this.cursoMallaService.createCicloMalla(newCiclo).subscribe(
+        (createdCiclo: CicloMalla) => {
+          if (createdCiclo && createdCiclo.id) {
+            // Step 2: Get local CursoMalla records
+            const cursos = this.cursoMallaService.getCursoMallasTemporal();
+
+            // Step 3: Update local CursoMalla records with the new id_ciclo
+            const updatedCursos = cursos.map(curso => {
+              curso.id_ciclo = createdCiclo.id; // Update id_ciclo
+              return curso; // Return updated curso
+            });
+
+            // Send each updated CursoMalla to the backend
+            const updatePromises = updatedCursos.map(curso =>
+              this.cursoMallaService.createCursoMalla(curso).toPromise()
+            );
+
+            // Wait for all promises to resolve
+            Promise.all(updatePromises)
+              .then(() => {
+                this.cursoMallaService.clearCursoMallasTemporal();
+                this.nombre = '';
+              })
+              .catch(error => {
+                console.error('Error saving CursoMalla records:', error);
+              });
+          } else {
+            console.error('Created CicloMalla does not have a valid ID.');
+          }
+        },
+        error => {
+          console.error('Error creating CicloMalla:', error);
+        }
+      );
+    } else {
+      console.error('Solicitud not found.');
+    }
+  }
+
 
 }

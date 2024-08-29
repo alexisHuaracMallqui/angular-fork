@@ -4,7 +4,7 @@ export class CicloMalla {
     nombre: string;
     id_solicitud: number
 
-    constructor(id:number, numero: number, nombre: string, id_solicitud: number){
+    constructor(id:number = 0, numero: number, nombre: string, id_solicitud: number){
         this.id = id;
         this.numero = numero;
         this.nombre = nombre;

@@ -12,5 +12,5 @@ export class CursoMalla {
         this.id_ciclo = id_ciclo;
         this.tipo = tipo;
     }
-
+   
 }
