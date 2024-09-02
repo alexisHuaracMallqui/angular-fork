@@ -207,11 +207,11 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Obligatorio</td>
-                                            <td class="text-center">6</td>
-                                            <td class="text-center">6</td>
+                                        <tr *ngFor="let ciclo of listCiclos">
+                                            <td class="text-center">{{ciclo.nombre_ciclo}}</td>
+                                            <td class="text-center">{{ciclo.fecha_inicio}}</td>
+                                            <td class="text-center">{{ciclo.fecha_fin}}</td>
+                                            <td class="text-center">{{ciclo.creditos}}</td>
                                             <td class="text-center">6</td>
                                             <td class="text-center"><span class="badge rounded-pill text-dark"
                                                     style="background-color: rgba(255, 249, 196, 1);">En Proceso</span>
@@ -219,6 +219,7 @@
                                             <td><button class="btn" routerLink="/concepto-modulo-academico"
                                                     type="button"><i class="bi bi-chevron-right"></i></button></td>
                                         </tr>
+                                        <!--
                                         <tr>
                                             <td class="text-center">Ciencias</td>
                                             <td class="text-center">Obligatorio</td>
@@ -230,6 +231,7 @@
                                             </td>
                                             <td><button class="btn"><i class="bi bi-chevron-right"></i></button></td>
                                         </tr>
+                                        -->
 
                                     </tbody>
                                 </table>

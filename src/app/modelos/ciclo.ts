@@ -3,24 +3,26 @@ export class Ciclo {
   fecha_inicio: Date;
   fecha_fin: Date;
   periodo: string;
-  creditos: string;
+  creditos: number;
   id_solicitud: number;
   id_documento_evidencia: string;
   id_ciclo: number;
   id_doc_matricula: string;
   estado: string;
+  nombre_ciclo: string;
 
   constructor(
     id: number,
     fecha_inicio: Date,
     fecha_fin: Date,
     periodo: string,
-    creditos: string,
+    creditos: number,
     id_solicitud: number,
     id_documento_evidencia: string,
     id_ciclo: number,
     id_doc_matricula: string,
-    estado: string
+    estado: string,
+    nombre_ciclo: string
   ) {
     this.id = id;
     this.fecha_inicio = fecha_inicio;
@@ -32,5 +34,6 @@ export class Ciclo {
     this.id_ciclo = id_ciclo;
     this.id_doc_matricula = id_doc_matricula;
     this.estado = estado;
+    this.nombre_ciclo = nombre_ciclo;
   }
 }

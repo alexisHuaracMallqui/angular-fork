@@ -20,7 +20,7 @@ export class CicloService {
 
   //Retornar ciclo por solicitud
   getCiclosBySolicitud(id_solicitud: number) {
-    return this.http.get(`${this.apiUrl}/solicitud/${id_solicitud}`);
+    return this.http.get<Ciclo[]>(`${this.apiUrl}/solicitud/${id_solicitud}`);
   }
 
   //Crear ciclo

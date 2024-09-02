@@ -4,6 +4,11 @@ import { CursoMalla } from '../../modelos/curso-malla';
 import { MallaCurricularService } from '../../servicios/malla-curricular/malla-curricular.service';
 import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
 import { FormsModule } from '@angular/forms';
+import { Ciclo } from '../../modelos/ciclo';
+import { CicloService } from '../../servicios/ciclo/ciclo.service';
+import { CursoService } from '../../servicios/curso/curso.service';
+import { Curso } from '../../modelos/curso';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nuevo-ciclo-academico',
@@ -16,10 +21,14 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   listCurso: Array<CursoMalla> = [];
   listCursoPopUp: Array<CursoMalla> = [];
   cursoSeleccionadoPopUp: CursoMalla = new CursoMalla(0,'',0,0,'');
+  ciclo: Ciclo = new Ciclo(0, new Date(), new Date(),'',0,0,'',0,'','','');
 
   constructor(
     private mallaService: MallaCurricularService,
-    private solicitudService: SolicitudService
+    private solicitudService: SolicitudService,
+    private cicloService: CicloService,
+    private cursoService: CursoService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +97,32 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
   sumarCredito(): number {
     return this.listCurso.reduce((total, curso) => total + curso.creditos, 0);
+  }
+
+  guardarCicloAcademico(): void {
+    this.ciclo.id_solicitud = this.solicitud.id;
+    this.ciclo.estado='En Proceso';
+    this.ciclo.creditos = this.sumarCredito();
+    this.cicloService.createCiclo(this.ciclo).subscribe({
+      next: (response: any) => {
+        for (let curso of this.listCurso) {
+          const newCurso = new Curso(0,curso.id,curso.tipo,0,response.id,this.solicitud.id,curso.creditos,curso.Nombre);
+          this.guardarCurso(newCurso);
+          this.router.navigate(['informacion-view'])
+        }
+      }
+    })
+  }
+
+  guardarCurso(curso: Curso): void {
+    this.cursoService.createCurso(curso).subscribe({
+      next: ()=> {
+        console.log('Curso guardado exitosamente,')
+      },
+      error: (err) =>{
+        console.error('Error al guardar curso',err)
+      }
+    })
   }
 
 }
