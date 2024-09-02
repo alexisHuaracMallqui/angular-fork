@@ -36,4 +36,5 @@ export class Ciclo {
     this.estado = estado;
     this.nombre_ciclo = nombre_ciclo;
   }
+
 }
