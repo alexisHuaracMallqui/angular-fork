@@ -25,7 +25,10 @@ export class NuevoCicloComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.solicitud = this.solicitudService.getSolicitudData();
+    this.solicitudService.getSolicitudData().subscribe(data=>{
+      this.solicitud = data;
+ 
+    });
 
   }
 

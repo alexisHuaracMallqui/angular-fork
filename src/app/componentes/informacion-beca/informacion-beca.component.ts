@@ -47,33 +47,35 @@ export class InformacionBecaComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.solicitud = this.solicitudService.getSolicitudData();
-    if (this.solicitud) {
-      this.formInfoPeriodo.patchValue({
-        dni: this.solicitud.dni,
-        nombre_completo: this.solicitud.nombre_completo,
-        institucion_nombre: this.solicitud.institucion_nombre,
-        fecha_inicio: this.solicitud.fecha_inicio,
-        fecha_fin_estimada: this.solicitud.fecha_fin_estimada
-      });
+    this.solicitudService.getSolicitudData().subscribe(data => {
+      this.solicitud = data;
+      if (this.solicitud) {
+        this.formInfoPeriodo.patchValue({
+          dni: this.solicitud.dni,
+          nombre_completo: this.solicitud.nombre_completo,
+          institucion_nombre: this.solicitud.institucion_nombre,
+          fecha_inicio: this.solicitud.fecha_inicio,
+          fecha_fin_estimada: this.solicitud.fecha_fin_estimada
+        });
 
-      const fecha_inicial = this.solicitud.fecha_inicio;
-      const fecha_estimada = this.solicitud.fecha_fin_estimada;
+        const fecha_inicial = this.solicitud.fecha_inicio;
+        const fecha_estimada = this.solicitud.fecha_fin_estimada;
 
-      const formattedDateInitial = this.formatDateForInput(fecha_inicial);
-      const formattedDateFinal = this.formatDateForInput(fecha_estimada);
+        const formattedDateInitial = this.formatDateForInput(fecha_inicial);
+        const formattedDateFinal = this.formatDateForInput(fecha_estimada);
 
-      this.formInfoPeriodo.patchValue({
-        fecha_inicio: formattedDateInitial,
-        fecha_fin_estimada: formattedDateFinal
-      });
+        this.formInfoPeriodo.patchValue({
+          fecha_inicio: formattedDateInitial,
+          fecha_fin_estimada: formattedDateFinal
+        });
 
-      //Obteniendo Malla por ID Solicitud
-      this.getMallaCiclos();
+        //Obteniendo Malla por ID Solicitud
+        this.getMallaCiclos();
 
-    } else {
-      console.error('Solicitud data is not available');
-    }
+      } else {
+        console.error('Solicitud data is not available');
+      }
+    });
 
   }
 
