@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { CicloMalla } from '../../modelos/ciclo-malla';
 import { CursoMalla } from '../../modelos/curso-malla';
 import { Observable } from 'rxjs';
+import { RelacionMalla } from '../../modelos/relacion-malla';
 
 @Injectable({
   providedIn: 'root',
@@ -17,19 +18,22 @@ export class MallaCurricularService {
 
   //Funciones CICLOS de malla curricular
   // Retornar ciclos de malla por solicitud
+
+
   getCiclosMallaBySolicitud(id_solicitud: number) {
     return this.http.get<CicloMalla[]>(`${this.apiUrl}/ciclos/solicitud/${id_solicitud}`);
   }
 
   //Retornar ciclo de malla
-  getCicloMalla(id: number) {
+  /*getCicloMalla(id: number) {
     return this.http.get(`${this.apiUrl}/ciclo/${id}`);
+  }*/
+  getCicloMalla(id: number): Observable<CicloMalla[]> {
+    return this.http.get<CicloMalla[]>(`${this.apiUrl}/ciclo/${id}`);
   }
 
+
   //Crear ciclo malla
-  /*createCicloMalla(ciclo: CicloMalla) {
-    return this.http.post(`${this.http}/ciclo`, ciclo);
-  }*/
   createCicloMalla(ciclo: CicloMalla) {
     return this.http.post<CicloMalla>(`${this.apiUrl}/ciclo`, ciclo);
   }
@@ -37,22 +41,27 @@ export class MallaCurricularService {
 
   //Actualiza ciclo malla
   updateCicloMalla(ciclo: CicloMalla) {
-    return this.http.put(`${this.http}/ciclo/${ciclo.id}`, ciclo);
+    return this.http.put(`${this.apiUrl}/ciclo/${ciclo.id}`, ciclo);
   }
 
   //Eliminar ciclo malla
   deleteCicloMalla(ciclo: CicloMalla) {
-    return this.http.delete(`${this.http}/ciclo/${ciclo.id}`);
+    return this.http.delete(`${this.apiUrl}/ciclo/${ciclo.id}`);
   }
 
   //Funciones CURSOS de malla curricular
+
   // Retornar curso de malla
   getCursoMalla(id: number) {
     return this.http.get(`${this.apiUrl}/curso/${id}`);
   }
 
+
   // Retornar cursos de malla por ciclo
-  getCursoMallaByCiclo(id_ciclo: number) {
+  /* getCursoMallaByCiclo(id_ciclo: number) {
+    return this.http.get(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
+  }*/
+  getCursoMallaByCiclo(id_ciclo: number): Observable<CursoMalla[]> {
     return this.http.get<CursoMalla[]>(`${this.apiUrl}/cursos/ciclo/${id_ciclo}`);
   }
 

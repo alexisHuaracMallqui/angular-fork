@@ -4,7 +4,6 @@ import { CursoMalla } from '../../modelos/curso-malla';
 import { MallaCurricularService } from '../../servicios/malla-curricular/malla-curricular.service';
 import { SolicitudService } from '../../servicios/solicitud/solicitud.service';
 import { CicloMalla } from '../../modelos/ciclo-malla';
-import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-nuevo-ciclo',
@@ -35,7 +34,7 @@ export class NuevoCicloComponent implements OnInit {
     if (this.editingIndex !== null) {
       // Actualizamos
       this.cursoMallaService.updateCursoMallaTemporal(this.editingIndex, this.newCursoMalla);
-      this.editingIndex = null; 
+      this.editingIndex = null;
     } else {
       // Agregamos
       if (this.newCursoMalla.Nombre && this.newCursoMalla.creditos > 0 && this.newCursoMalla.tipo) {
@@ -66,15 +65,15 @@ export class NuevoCicloComponent implements OnInit {
 
   createAndSaveCiclo() {
     if (this.solicitud) {
-      // Step 1: Create the CicloMalla
+      // Create the CicloMalla
       const newCiclo = new CicloMalla(0, 0, this.nombre, this.solicitud.id);
       this.cursoMallaService.createCicloMalla(newCiclo).subscribe(
         (createdCiclo: CicloMalla) => {
           if (createdCiclo && createdCiclo.id) {
-            // Step 2: Get local CursoMalla records
+            // Get local CursoMalla records
             const cursos = this.cursoMallaService.getCursoMallasTemporal();
 
-            // Step 3: Update local CursoMalla records with the new id_ciclo
+            // Update local CursoMalla records with the new id_ciclo
             const updatedCursos = cursos.map(curso => {
               curso.id_ciclo = createdCiclo.id; // Update id_ciclo
               return curso; // Return updated curso

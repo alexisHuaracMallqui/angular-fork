@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './componentes/login/login.component';
 import { DetalleAcademicoComponent } from './componentes/detalle-academico/detalle-academico.component';
@@ -14,6 +14,7 @@ import { RegisterFormNextComponent } from './componentes/register-form-next/regi
 import { RegisterFormFinalComponent } from './componentes/register-form-final/register-form-final.component';
 
 import { authGuard } from './servicios/guard/auth.guard';
+import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/editar-mallas-cursos.component';
 
 const routes: Routes = [
 {path: '', component:LoginComponent},
@@ -27,7 +28,8 @@ const routes: Routes = [
 {path: 'reporte-academico', component: ReporteAcademicoComponent},
 {path: 'register-form', component: RegisterFormComponent},
 {path: 'register-form-next', component: RegisterFormNextComponent},
-{path: 'register-form-final', component: RegisterFormFinalComponent}
+{path: 'register-form-final', component: RegisterFormFinalComponent},
+{path: 'informacion/:id', component: EditarMallasCursosComponent}
 
 ];
 

@@ -18,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RegisterFormNextComponent } from './componentes/register-form-next/register-form-next.component';
 import { RegisterFormFinalComponent } from './componentes/register-form-final/register-form-final.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
+import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/editar-mallas-cursos.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { NgxCaptchaModule } from 'ngx-captcha';
     ReporteAcademicoComponent,
     RegisterFormComponent,
     RegisterFormNextComponent,
-    RegisterFormFinalComponent
+    RegisterFormFinalComponent,
+    EditarMallasCursosComponent
   ],
   imports: [
     BrowserModule,

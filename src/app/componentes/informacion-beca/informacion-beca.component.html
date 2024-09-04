@@ -168,34 +168,41 @@
                 </div>
                 <div class="card-body">
                     <div class="card">
-                        <div class="card-header" style="background-color: #ECF2F9;">
+                        <!--<div class="card-header" style="background-color: #ECF2F9;">
                             <h6 class="text-center my-auto">Ciclo I</h6>
-                        </div>
+                        </div>-->
                         <div class="card-body">
                             <div class="container table-responsive">
                                 <table class="table table-bordered">
-                                    <thead class="bg-light">
-                                        <tr>
-                                            <th class="text-center">Curso</th>
-                                            <th class="text-center">Tipo</th>
-                                            <th class="text-center">Créditos</th>
-                                        </tr>
-                                    </thead>
                                     <tbody>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Obligatorio</td>
-                                            <td class="text-center">6</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Obligatorio</td>
-                                            <td class="text-center">6</td>
-                                        </tr>
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Obligatorio</td>
-                                            <td class="text-center">6</td>
+                                        <tr *ngFor="let ciclo of cicloCursoRelacion">
+                                            <td class="text-center" style="background-color: #ECF2F9;">
+                                                {{ciclo.ciclo.nombre}}</td>
+                                            <td><button class="btn btn-danger"
+                                                    (click)="deleteCicloAll(ciclo.ciclo)">Delete All</button>
+                                                <button class="btn btn-warning"
+                                                    (click)="selectCiclo(ciclo.ciclo.id)">Editar</button>
+                                            </td>
+                                            <td>
+                                                <table class="table table-bordered">
+                                                    <thead class="bg-light">
+                                                        <tr>
+                                                            <th class="text-center">Nombre</th>
+                                                            <th class="text-center">Tipo</th>
+                                                            <th class="text-center">Créditos</th>
+                                                           
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr *ngFor="let curso of ciclo.cursos">
+                                                            <td class="text-center">{{curso.Nombre}}</td>
+                                                            <td class="text-center">{{curso.tipo}}</td>
+                                                            <td class="text-center">{{curso.creditos}}</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -256,6 +263,4 @@
 
         </div>
     </div>
-</div>
 
-{{solicitud | json}}
