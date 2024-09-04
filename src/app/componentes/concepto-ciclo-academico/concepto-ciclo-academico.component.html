@@ -23,7 +23,7 @@
 
                     <li class="nav-item m-4">
                         <a class="nav-link text-white btn-image-text active p-3"
-                            style="background-color:rgba(255, 255, 255, 0.2);" href="" routerLink="/informacion">
+                            style="background-color:rgba(255, 255, 255, 0.2);" href="" (click)="regresarInformacionBeca()">
                             <img src="https://blobauroranuevo.blob.core.windows.net/images3d/Form.png" alt="Icon">
                             <span><strong>Información Beca</strong></span>
                         </a>
@@ -52,14 +52,14 @@
             <nav aria-label="breadcrumb" class="mt-2">
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="#" routerLink="/informacion-view">Información de Beca</a></li>
-                    <li class="breadcrumb-item active" aria-current="page">Ciclo 2024-2</li>
+                    <li class="breadcrumb-item active" aria-current="page">{{selectedCiclo?.nombre_ciclo}}</li>
                 </ol>
             </nav>
             <div class="card mt-1 mb-3">
                 <div class="card-header">
                     <div class="row">
                         <div class="col d-flex align-items-center"><span class="text-success my-auto"><strong
-                                    class="text-dark">Ciclo 2024-2</strong>
+                                    class="text-dark">{{selectedCiclo?.nombre_ciclo}}</strong>
                             </span></div>
                         <div class="col d-flex justify-content-end"><button class="btn btn-outline-primary w-50"
                                 routerLink="/edit-modulo-academico">Editar Datos</button></div>
@@ -75,7 +75,7 @@
                                         class="form-label my-auto"><strong>Ciclo:</strong></label></div>
                                 <div class="col-12 col-md-8 my-auto"><input type="text"
                                         class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="2024-2"></div>
+                                        readonly value="{{selectedCiclo?.nombre_ciclo}}"></div>
                             </div>
 
                             <div class="row mb-3">
@@ -83,7 +83,7 @@
                                         class="form-label my-auto"><strong>N° Cursos:</strong></label></div>
                                 <div class="col-12 col-md-8 my-auto"><input type="text"
                                         class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="2024-2"></div>
+                                        readonly value="{{getNumCursos()}}"></div>
                             </div>
 
                             <div class="row mb-3">
@@ -91,7 +91,7 @@
                                         class="form-label my-auto"><strong>N° Créditos:</strong></label></div>
                                 <div class="col-12 col-md-7 my-auto"><input type="text"
                                         class="form-control-plaintext text-muted disabled" formControlName="" name=""
-                                        readonly value="2024-2"></div>
+                                        readonly value="{{getTotaCreditos()}}"></div>
                             </div>
                         </div>
 
@@ -102,7 +102,7 @@
                                             class="form-label my-auto"><strong>Fecha Inicio:</strong></label></div>
                                     <div class="col-12 col-md-8"><input type="text"
                                             class="form-control-plaintext text-muted disabled" formControlName=""
-                                            name="" readonly value="12/12/2024"></div>
+                                            name="" readonly value="{{selectedCiclo?.fecha_inicio | date:'dd/MM/yyyy'}}"></div>
                                 </div>
                             </div>
                             <div class="col-6 col-md-4">
@@ -111,16 +111,20 @@
                                             class="form-label my-auto"><strong>Fecha Fin:</strong></label></div>
                                     <div class="col-12 col-md-8"><input type="text"
                                             class="form-control-plaintext text-muted disabled" formControlName=""
-                                            name="" readonly value="12/12/2024"></div>
+                                            name="" readonly value="{{selectedCiclo?.fecha_fin | date:'dd/MM/yyyy'}}"></div>
                                 </div>
                             </div>
                         </div>
                         <div class="row mb-1">
-                            <div class="col-12 col-md-1 d-flex align-items-center"><label
-                                    class="form-label my-auto"><strong>Matrícula:</strong></label></div>
-                            <div class="col-12 col-md-6"><input type="url"
-                                    class="form-control-plaintext text-primary disabled" formControlName="" name=""
-                                    readonly value="matrícual_2024_2_Martín.pdf">
+                            <div class="col-12 col-md-1 d-flex align-items-center">
+                                <label
+                                    class="form-label my-auto"><strong>Matrícula:</strong>
+                                </label>
+                            </div>
+                            <div class="col-12 col-md-6">
+                                <a type="url"class="form-control-plaintext text-primary disabled" href="{{selectedCiclo?.id_doc_matricula}}" target="_blank">
+                                    matrícual{{selectedCiclo?.nombre_ciclo}}.pdf
+                                </a>
                             </div>
                         </div>
 

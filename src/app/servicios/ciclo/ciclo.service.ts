@@ -8,6 +8,8 @@ import { Ciclo } from '../../modelos/ciclo';
 export class CicloService {
 
   private apiUrl = 'http://localhost:3000/registro/ciclo';
+  private selectedCiclo: Ciclo | null = null;
+  private readonly STORAGE_KEY = 'selectedCiclo'
 
 
   constructor(private http: HttpClient) { 
@@ -36,5 +38,32 @@ export class CicloService {
   //Eliminar ciclo
   deleteCiclo(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+
+  //setear ciclo seleccionado
+  setSelectedCiclo(ciclo: Ciclo): void {
+    this.selectedCiclo = ciclo;
+    localStorage.setItem(this.STORAGE_KEY, JSON.stringify(ciclo));
+  }
+
+
+  //obtener ciclo seleccionado
+  getSelectedCiclo(): Ciclo | null {
+    if(this.selectedCiclo) return this.selectedCiclo;
+
+    const cicloData = localStorage.getItem(this.STORAGE_KEY);
+    if (cicloData) {
+      this.selectedCiclo = JSON.parse(cicloData);
+    }
+
+    return this.selectedCiclo;
+  }
+
+  //Limpiar ciclo seleccionado
+  clearSelectedCiclo(): void {
+    this.selectedCiclo = null;
+
+    localStorage.removeItem(this.STORAGE_KEY);
   }
 }

@@ -14,12 +14,12 @@ export class CursoService {
 
   //Retornar curso
   getCurso(id: number) {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get<Curso>(`${this.apiUrl}/${id}`);
   }
 
   //Retornar curso por ciclo
   getCursoByCiclo(id_registro_ciclo: number) {
-    return this.http.get(`${this.apiUrl}/ciclo/${id_registro_ciclo}`);
+    return this.http.get<Curso[]>(`${this.apiUrl}/ciclo/${id_registro_ciclo}`);
   }
 
   //Crear curso 
@@ -35,6 +35,14 @@ export class CursoService {
   //Eliminar curso 
   deleteCurso(id: number) {
     return this.http.delete(`${this.apiUrl}/${id}`);
+  }
+
+  getNumCursos(cursos: Array<Curso>): number {
+    return cursos.length
+  }
+
+  getTotalCreditos(cursos: Array<Curso>): number {
+    return cursos.reduce((total, curso) => total + curso.creditos,0);
   }
 }
 

@@ -14,12 +14,12 @@ export class PagoService {
 
   //Retornar pago
   getPago(id: number) {
-    return this.http.get(`${this.apiUrl}/${id}`);
+    return this.http.get<Pago>(`${this.apiUrl}/${id}`);
   }
 
   //Retornar pagos por ciclo
   getPagoByCiclo(id_registroCiclo: number) {
-    return this.http.get(`${this.apiUrl}/ciclo/${id_registroCiclo}`);
+    return this.http.get<Pago[]>(`${this.apiUrl}/ciclo/${id_registroCiclo}`);
   }
 
   //Crear pago
