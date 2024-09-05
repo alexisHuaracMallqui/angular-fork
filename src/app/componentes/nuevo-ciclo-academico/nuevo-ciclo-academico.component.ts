@@ -19,6 +19,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class NuevoCicloAcademicoComponent implements OnInit {
   solicitud: any;
+  selectedCicloMallaId: number = 0;
   listCicloMalla: Array<CicloMalla> = [];
   listCurso: Array<CursoMalla> = [];
   listCursoPopUp: Array<CursoMalla> = [];
@@ -66,6 +67,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
   }
 
   obtenerCursosDeCicloMalla(cicloMalla: any) {
+    this.selectedCicloMallaId = cicloMalla.target.value;
     this.mallaService.getCursoMallaByCiclo(cicloMalla.target.value).subscribe({
       next: (listCurso: Array<CursoMalla>) => {
         this.listCurso = listCurso;
@@ -134,6 +136,7 @@ export class NuevoCicloAcademicoComponent implements OnInit {
 
     forkJoin(cargaArchivos).subscribe({
       next: (response: any[]) => {
+        this.ciclo.id_ciclo = this.selectedCicloMallaId ;
         this.ciclo.id_solicitud = this.solicitud.id;
         this.ciclo.id_doc_matricula = response[0].url;
         this.ciclo.estado = 'En Proceso';

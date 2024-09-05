@@ -32,31 +32,7 @@ export class InformacionBecaViewComponent implements OnInit{
   ) {
 
   }
-/*
-  ngOnInit(): void {
-    this.solicitudService.getSolicitudData().subscribe(data => {
-      this.solicitud = data;
-      if(this.solicitud){
-        this.cicloService.getCiclosBySolicitud(this.solicitud.id).subscribe({
-          next: (listCiclo: Array<Ciclo>) => {
-            this.listCiclos = listCiclo;
-            this.listCiclos.forEach(ciclo => {
-              try {
-                this.getNumCursos(ciclo.id).then(numCursos => {
-                  this.numCursosMap.set(ciclo.id, numCursos);
-                  this.cdr.detectChanges();
-                });
-              } catch (error) {
-                console.error('Error obteniendo el número de cursos', error)
-              }
-            })
-            this.cdr.detectChanges();
-          }
-        })
-      }
-    });
-    this.cdr.detectChanges();
-  }*/
+
 
     ngOnInit(): void {
       this.solicitudService.getSolicitudData().subscribe(data => {

@@ -19,6 +19,7 @@ import { RegisterFormNextComponent } from './componentes/register-form-next/regi
 import { RegisterFormFinalComponent } from './componentes/register-form-final/register-form-final.component';
 import { NgxCaptchaModule } from 'ngx-captcha';
 import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/editar-mallas-cursos.component';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -46,7 +47,8 @@ import { EditarMallasCursosComponent } from './componentes/editar-mallas-cursos/
     NgxCaptchaModule
   ],
   providers: [
-    provideAnimationsAsync()
+    provideAnimationsAsync(),
+    DatePipe
   ],
   bootstrap: [AppComponent]
 })

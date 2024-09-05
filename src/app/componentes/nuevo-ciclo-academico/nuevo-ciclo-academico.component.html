@@ -133,7 +133,7 @@
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Curso: </label>
-                        <select class="form-select" name="curso" [(ngModel)]="cursoSeleccionadoPopUp" >
+                        <select class="form-select" name="" [(ngModel)]="cursoSeleccionadoPopUp" >
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
                             <option value="" *ngFor="let curso of listCursoPopUp" [ngValue]="curso">{{curso.Nombre}}</option>
                         </select>
@@ -142,11 +142,11 @@
                         <div class="row">
                             <div class="col">
                                 <label class="form-label text-dark">Tipo: </label>
-                                <input type="text" class="form-control disabled" name="tipo" [(ngModel)]="cursoSeleccionadoPopUp.tipo" readonly >
+                                <input type="text" class="form-control disabled"  [(ngModel)]="cursoSeleccionadoPopUp.tipo" readonly >
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark">Crédito: </label>
-                                <input type="text" class="form-control disabled" name="creditos" [(ngModel)]="cursoSeleccionadoPopUp.creditos" readonly >
+                                <input type="text" class="form-control disabled" [(ngModel)]="cursoSeleccionadoPopUp.creditos" readonly >
                             </div>
                         </div>
                     </div>

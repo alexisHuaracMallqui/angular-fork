@@ -49,6 +49,7 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
               this.cdr.detectChanges();
             }
           })
+          this.cdr.detectChanges();
         }
       }
     })

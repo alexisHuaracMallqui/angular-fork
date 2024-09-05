@@ -9,19 +9,17 @@
                         routerLink="/concepto-modulo-academico"></button></div>
             </div>
         </div>
-        <div class="card-body">
+        <div *ngIf="selectedCiclo" class="card-body">
             <div class="row">
                 <div class="col-12 col-md-6 mb-3">
                     <label class="form-label"><strong>Nombre Ciclo</strong></label>
-                    <input type="text" class="form-control" />
+                    <input [(ngModel)]="selectedCiclo.nombre_ciclo" type="text" class="form-control" />
                 </div>
                 <div class="col-12 col-md-6 mb-3">
                     <label class="form-label"><strong>Ciclo Malla Curricular</strong></label>
-                    <select class="form-select">
+                    <select [(ngModel)]="selectedCiclo.id_ciclo" (change)="obtenerCursosDeCicloMalla($event)" class="form-select">
                         <option selected disabled>Seleccionar una opción</option>
-                        <option value="1">One</option>
-                        <option value="2">Two</option>
-                        <option value="3">Three</option>
+                        <option *ngFor="let ciclo of listCicloMalla" value={{ciclo.id}}>{{ciclo.nombre}}</option>
                     </select>
                 </div>
             </div>
@@ -29,26 +27,26 @@
                 <div class="col-12 col-md-6 mb-3">
                     <div class="row">
                         <div class="col"><label class="form-label"><strong>Fecha Inicio</strong></label>
-                            <input type="date" class="form-control" />
+                            <input [(ngModel)]="fechaInicioStr" type="date" class="form-control" />
                         </div>
                         <div class="col"><label class="form-label"><strong>Fecha Fin</strong></label>
-                            <input type="date" class="form-control" />
+                            <input [(ngModel)]="fechaFinStr" type="date" class="form-control" />
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 mb-3">
                     <label class="form-label"><strong>Constancia de Matrícula</strong></label>
-                    <input type="file" class="form-control" />
+                    <input type="file" (change)="onFileChange($event)" class="form-control" />
                 </div>
             </div>
             <div class="row">
                 <div class="col-12 col-md-6 mb-3">
                     <div class="row">
                         <div class="col"><label class="form-label"><strong>N° Cursos</strong></label>
-                            <input type="text" class="form-control" value="" disabled />
+                            <input type="text" class="form-control" value="{{contarCursos()}}" disabled />
                         </div>
                         <div class="col"><label class="form-label"><strong>N° Créditos</strong></label>
-                            <input type="text" class="form-control" value="" disabled />
+                            <input type="text" class="form-control" value="{{sumarCredito()}}" disabled />
                         </div>
                     </div>
                 </div>
@@ -79,12 +77,12 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td class="text-center">Proyecto de Arquitectura I</td>
-                                    <td class="text-center">Obligatorio</td>
-                                    <td class="text-center">60</td>
+                                <tr *ngFor="let curso of listCursos">
+                                    <td class="text-center">{{curso.nombre}}</td>
+                                    <td class="text-center">{{curso.tipo}}</td>
+                                    <td class="text-center">{{curso.creditos}}</td>
                                     <td class="text-center">
-                                        <button type="button" class="btn"
+                                        <button (click)="quitarCursoDeLista(curso)" type="button" class="btn"
                                             style="background-color: rgba(234, 76, 83, 0.1); border: solid red 1px;"><i
                                                 class="bi bi-trash" style="color: red;"></i></button>
 
@@ -98,7 +96,7 @@
             </div>
 
             <div class="d-flex justify-content-end">
-                <button class="btn btn-primary w-25 btn-sm" routerLink="/concepto-modulo-academico">Guardar Ciclo Académico</button>
+                <button class="btn btn-primary w-25 btn-sm" (click)="guardarCiclo()" >Guardar Ciclo Académico</button>
             </div>
 
         </div>
@@ -126,32 +124,32 @@
                 <form action="">
                     <div class="mb-3">
                         <label class="form-label text-dark">Ciclo: </label>
-                        <select class="form-select" name="" id="">
+                        <select class="form-select" name="editSelectCiclo" (change)="onAgregarCursoCicloChange($event)">
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="">Obligatorio</option>
+                            <option *ngFor="let ciclo of listCicloMalla" value={{ciclo.id}}>{{ciclo.nombre}}</option>
                         </select>
                     </div>
                     <div class="mb-3">
                         <label class="form-label text-dark">Curso: </label>
-                        <select class="form-select" name="" id="">
+                        <select class="form-select" name="editSelectCurso" [(ngModel)]="cursoSeleccionadoPopUp" >
                             <option value="" selected disabled class="text-muted">Seleccione una opción</option>
-                            <option value="">Obligatorio</option>
+                            <option value="" *ngFor="let curso of listCursoPopUp" [ngValue]="curso">{{curso.Nombre}}</option>
                         </select>
                     </div>
                     <div class="mb-4">
                         <div class="row">
                             <div class="col">
                                 <label class="form-label text-dark">Tipo: </label>
-                                <input type="text" class="form-control disabled" formControlName="" name="" value="" >
+                                <input type="text" name="editCursoTipo" class="form-control disabled" [(ngModel)]="cursoSeleccionadoPopUp.tipo" readonly  >
                             </div>
                             <div class="col">
                                 <label class="form-label text-dark">Crédito: </label>
-                                <input type="text" class="form-control disabled" formControlName="" name="" value="" >
+                                <input type="text" name="editCursoCreditos" class="form-control disabled" [(ngModel)]="cursoSeleccionadoPopUp.creditos" readonly >
                             </div>
                         </div>
                     </div>
                     <div class="d-grid mb-3">
-                        <button class="btn btn-primary">Añadir Curso</button>
+                        <button data-bs-dismiss="modal" (click)="agregarCurso()" class="btn btn-primary">Añadir Curso</button>
                     </div>
                 </form>
             </div>

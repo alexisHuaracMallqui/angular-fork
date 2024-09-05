@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Ciclo } from '../../modelos/ciclo';
+import { DatePipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,10 @@ export class CicloService {
   private readonly STORAGE_KEY = 'selectedCiclo'
 
 
-  constructor(private http: HttpClient) { 
+  constructor(
+    private http: HttpClient,
+    private datePipe: DatePipe,
+  ) { 
   }
 
   //Retornar ciclo
@@ -32,7 +36,7 @@ export class CicloService {
 
   //Actualizar ciclo
   updateCiclo(ciclo: Ciclo) {
-    return this.http.put(`${this.apiUrl}/${ciclo.id}`, ciclo);
+    return this.http.put<Ciclo>(`${this.apiUrl}/${ciclo.id}`, ciclo);
   }
 
   //Eliminar ciclo
@@ -65,5 +69,10 @@ export class CicloService {
     this.selectedCiclo = null;
 
     localStorage.removeItem(this.STORAGE_KEY);
+  }
+
+  //Formatear fecha
+  formatDate(date: Date): string  {
+    return this.datePipe.transform(date, 'yyyy-MM-dd') ?? '';
   }
 }

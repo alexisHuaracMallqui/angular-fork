@@ -37,6 +37,11 @@ export class CursoService {
     return this.http.delete(`${this.apiUrl}/${id}`);
   }
 
+  //Eliminar cursos por ciclo
+  deleteCursoByCiclo(id_registro_ciclo: number){
+    return this.http.delete(`${this.apiUrl}/ciclo/${id_registro_ciclo}`)
+  }
+
   getNumCursos(cursos: Array<Curso>): number {
     return cursos.length
   }
