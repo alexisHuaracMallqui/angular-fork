@@ -99,7 +99,8 @@
                                         <div class="col"><label class="form-label" style="color: #636363;">Fecha
                                                 Inicio:</label></div>
                                         <div class="col"><input type="date" class="form-control"
-                                                [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio" required>
+                                                [(ngModel)]="fecha_inicio" name="fecha_inicio" id="fecha_inicio"
+                                                required>
                                         </div>
                                     </div>
                                 </div>
@@ -184,21 +185,28 @@
                     </div>
                     <div class="card-body">
                         <div class="card">
-                            <!--<div class="card-header" style="background-color: #ECF2F9;">
-                            <h6 class="text-center my-auto">Ciclo I</h6>
-                        </div>-->
+
                             <div class="card-body">
                                 <div class="container table-responsive">
-                                    <table class="table table-bordered">
-                                        <tbody>
-                                            <tr *ngFor="let ciclo of cicloCursoRelacion">
-                                                <td class="text-center" style="background-color: #ECF2F9;">
-                                                    {{ciclo.ciclo.nombre}}</td>
-                                                <td><button class="btn btn-danger"
-                                                        (click)="deleteCicloAll(ciclo.ciclo)">Delete All</button>
-                                                    <button class="btn btn-warning"
-                                                        (click)="selectCiclo(ciclo.ciclo.id)">Editar</button>
-                                                </td>
+                                    <table class="table table-bordered" *ngFor="let ciclo of cicloCursoRelacion">
+                                        <thead>
+                                            <tr>
+                                                <th class="align-middle" style="background-color: #ECF2F9;">
+                                                    <div class="d-flex justify-content-center align-items-center">
+                                                        <span class="me-5">{{ciclo.ciclo.nombre}}</span>
+                                                        <button class="btn btn-outline-info btn-sm me-2"
+                                                            (click)="selectCiclo(ciclo.ciclo.id)"><i
+                                                                class="bi bi-pencil-fill"></i></button>
+                                                        <button class="btn btn-outline-danger btn-sm"
+                                                            (click)="deleteCicloAll(ciclo.ciclo)"><i
+                                                                class="bi bi-trash3"></i></button>
+
+                                                    </div>
+                                                </th>
+                                            </tr>
+                                        </thead>
+                                        <tbody class="m-0 p-0">
+                                            <tr>
                                                 <td>
                                                     <table class="table table-bordered">
                                                         <thead class="bg-light">
@@ -231,7 +239,8 @@
                     </div>
                     <div class="card-footer">
                         <div class="d-flex justify-content-end">
-                            <button class="btn btn-primary" routerLink="/informacion-view" type="submit" (click)="submitForm()" [disabled]="myForm.invalid">Guardar
+                            <button class="btn btn-primary" routerLink="/informacion-view" type="submit"
+                                (click)="submitForm()" [disabled]="myForm.invalid">Guardar
                                 Información</button>
                         </div>
                     </div>
