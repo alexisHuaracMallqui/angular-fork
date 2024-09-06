@@ -25,7 +25,7 @@ jobs:
         run: npm install --prefer-online --fetch-retries=3 --fetch-timeout=60000
 
       - name: Build Angular app
-        run: npm run build --prod
+        run: npm run build
     
       - name: List directory after build
         run: ls -R dist/
@@ -34,6 +34,6 @@ jobs:
         uses: Azure/static-web-apps-deploy@v1
         with:
           app_location: "/"
-          output_location: "/dist/"
+          output_location: "/dist/becas-form-main/browser/"
           azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN }}
           deployment_action: "upload"
