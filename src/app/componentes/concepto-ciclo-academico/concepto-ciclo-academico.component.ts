@@ -35,22 +35,31 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
       if(this.solicitud){
         this.selectedCiclo = this.cicloService.getSelectedCiclo();
         if(this.selectedCiclo){
-          //Obtener cursos del ciclo
-          this.cursoService.getCursoByCiclo(this.selectedCiclo.id).subscribe({
-            next: (listCurso: Array<Curso>) => {
-              this.listCursos = listCurso;
-              this.cdr.detectChanges();
-            }
-          })
-          //Obtener pagos del ciclo
-          this.pagoService.getPagoByCiclo(this.selectedCiclo.id).subscribe({
-            next: (listPagos: Array<Pago>) => {
-              this.listPagos = listPagos;
-              this.cdr.detectChanges();
-            }
-          })
+          this.getCursosCiclo(this.selectedCiclo.id);
+          this.getPagosCiclo(this.selectedCiclo.id);
           this.cdr.detectChanges();
         }
+      }
+    })
+  }
+
+
+  //Obtener cursos del ciclo
+  getCursosCiclo(id_ciclo: number) {
+    this.cursoService.getCursoByCiclo(id_ciclo).subscribe({
+      next: (listCurso: Array<Curso>) => {
+        this.listCursos = listCurso;
+        this.cdr.detectChanges();
+      }
+    })
+  }
+
+  //Obtener pagos del ciclo
+  getPagosCiclo(id_ciclo: number) {
+    this.pagoService.getPagoByCiclo(id_ciclo).subscribe({
+      next: (listPagos: Array<Pago>) => {
+        this.listPagos = listPagos;
+        this.cdr.detectChanges();
       }
     })
   }
@@ -66,7 +75,9 @@ export class ConceptoCicloAcademicoComponent implements OnInit{
     return this.cursoService.getTotalCreditos(this.listCursos);
   }
 
-  //Retorna el numero de creditos
+  agregarConceptoPago(): void {
+    
+  }
 
   //Volver pantalla anterior
   regresarInformacionBeca(){

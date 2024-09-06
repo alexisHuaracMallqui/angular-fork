@@ -93,8 +93,9 @@
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-9">
-                                    <input type="url" class="form-control-plaintext text-primary" disabled readonly
-                                        value="ABRIR CONTRATO" />
+                                    <a type="url"class="form-control-plaintext text-primary disabled" href="{{solicitud.url_doc_contrato}}" target="_blank">
+                                        Contrato - {{solicitud.nombre_completo}}.pdf
+                                    </a>
                                     
                                 </div>
 
@@ -140,8 +141,9 @@
                                     </label>
                                 </div>
                                 <div class="col-12 col-md-9">
-                                    <input type="url" class="form-control-plaintext text-primary" disabled readonly
-                                        value="MallaCurricularMartín.pdf" />
+                                    <a type="url"class="form-control-plaintext text-primary disabled" href="{{solicitud.id_malla_curricular}}" target="_blank">
+                                        Malla Curricular - {{solicitud.nombre_completo}}.pdf
+                                    </a>
                                 </div>
 
                             </div>
@@ -155,7 +157,7 @@
                                     <div class="row g-0">
                                         <div class="col-3">
                                             <input type="text" class="form-control-plaintext text-muted" disabled
-                                                readonly value="10 ciclos" />
+                                                readonly value="{{mallaCurricular.length}} Ciclos" />
                                         </div>
                                         <div class="col-9 d-flex justify-content-start"><button
                                                 class="btn btn-outline-primary" type="button" data-bs-toggle="modal"
@@ -174,7 +176,7 @@
                     <div class="col-12 col-md-4 d-flex align-items-center justify-content-center">
                         <div class="w-50">
                             <img class="img-fluid img-thumbnail"
-                                src="https://cdn.pixabay.com/photo/2013/07/12/14/07/student-147783_1280.png" alt="">
+                                src="{{solicitud.url_foto_estudiante}}" alt="">
                         </div>
                     </div>
                 </div>
@@ -219,19 +221,6 @@
                                             <td><button class="btn" (click)="selectCiclo(ciclo)"
                                                     type="button"><i class="bi bi-chevron-right"></i></button></td>
                                         </tr>
-                                        <!--
-                                        <tr>
-                                            <td class="text-center">Ciencias</td>
-                                            <td class="text-center">Obligatorio</td>
-                                            <td class="text-center">6</td>
-                                            <td class="text-center">6</td>
-                                            <td class="text-center">6</td>
-                                            <td class="text-center"><span class="badge rounded-pill text-dark"
-                                                    style="background-color: rgba(200, 230, 201, 1);">Finalizado</span>
-                                            </td>
-                                            <td><button class="btn"><i class="bi bi-chevron-right"></i></button></td>
-                                        </tr>
-                                        -->
 
                                     </tbody>
                                 </table>
@@ -266,8 +255,8 @@
                 </div>
             </div>
             <div class="modal-body">
-                <div class="card mb-3 ">
-                    <div class="card-header text-center bg-light">Ciclo I</div>
+                <div *ngFor="let ciclo of mallaCurricular" class="card mb-3 ">
+                    <div class="card-header text-center bg-light">{{ciclo.nombre}}</div>
                     <div class="card-body">
                         <div class="container table-responsive">
                             <table class="table table-bordered">
@@ -279,54 +268,10 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="card mb-3">
-                    <div class="card-header text-center bg-light">Ciclo II</div>
-                    <div class="card-body">
-                        <div class="container table-responsive">
-                            <table class="table table-bordered">
-                                <thead class="bg-light">
-                                    <tr>
-                                        <th class="text-center">Curso</th>
-                                        <th class="text-center">Tipo</th>
-                                        <th class="text-center">Créditos</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
-                                    </tr>
-                                    <tr>
-                                        <td class="text-center">Ciencias</td>
-                                        <td class="text-center">Obligatorio</td>
-                                        <td class="text-center">6</td>
+                                    <tr *ngFor="let curso of ciclo.cursos">
+                                        <td class="text-center">{{curso.Nombre}}</td>
+                                        <td class="text-center">{{curso.tipo}}</td>
+                                        <td class="text-center">{{curso.creditos}}</td>
                                     </tr>
                                 </tbody>
                             </table>
