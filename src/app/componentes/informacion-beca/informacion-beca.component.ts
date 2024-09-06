@@ -53,12 +53,12 @@ export class InformacionBecaComponent implements OnInit {
         this.fecha_inicio = this.formatDateForInput(this.solicitud.fecha_inicio);
         this.fecha_fin_estimada = this.formatDateForInput(this.solicitud.fecha_fin_estimada);
         this.getMallaCiclos();
-
+        this.cdr.detectChanges();
       } else {
         console.error('Solicitud data is not available');
       }
     });
-    this.cdr.detectChanges();
+
   }
 
   onFileChange_url_foto_estudiante(event: Event) {

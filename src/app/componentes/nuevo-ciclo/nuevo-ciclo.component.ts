@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl } from '@angular/forms';
 import { CursoMalla } from '../../modelos/curso-malla';
 import { MallaCurricularService } from '../../servicios/malla-curricular/malla-curricular.service';
@@ -20,14 +20,14 @@ export class NuevoCicloComponent implements OnInit {
 
 
 
-  constructor(private cursoMallaService: MallaCurricularService, private solicitudService: SolicitudService) {
+  constructor(private cursoMallaService: MallaCurricularService, private solicitudService: SolicitudService, private cdr: ChangeDetectorRef) {
 
   }
 
   ngOnInit(): void {
-    this.solicitudService.getSolicitudData().subscribe(data=>{
+    this.solicitudService.getSolicitudData().subscribe(data => {
       this.solicitud = data;
- 
+
     });
 
   }
@@ -87,11 +87,12 @@ export class NuevoCicloComponent implements OnInit {
               this.cursoMallaService.createCursoMalla(curso).toPromise()
             );
 
-            // Wait for all promises to resolve
+            // Esperamos
             Promise.all(updatePromises)
               .then(() => {
                 this.cursoMallaService.clearCursoMallasTemporal();
                 this.nombre = '';
+                this.cdr.detectChanges();
               })
               .catch(error => {
                 console.error('Error saving CursoMalla records:', error);
