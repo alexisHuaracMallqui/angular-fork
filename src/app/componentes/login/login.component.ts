@@ -16,8 +16,7 @@ export class LoginComponent implements OnInit {
 
   loginFormGroup = this.formLogin.group({
     dni: ['', Validators.required],
-    clave: ['', Validators.required],
-    recaptcha: ['', Validators.required]
+    clave: ['', Validators.required]
   });
 
   constructor(private authService: AuthService, private router: Router, private formLogin: FormBuilder) {
