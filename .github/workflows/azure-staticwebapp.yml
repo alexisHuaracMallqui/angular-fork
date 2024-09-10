@@ -18,23 +18,14 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Clean npm cache
-        run: npm cache clean --force
-
-      - name: Install dependencies without cache
-        run: npm install --prefer-online --fetch-retries=3 --fetch-timeout=60000
+      - name: Install dependencies
+        run: npm install
 
       - name: Build Angular app
-        run: npm run build
-
-      - name: List directory after build
-        run: ls -R dist/
+        run: npm run build --prod
 
       - name: Move staticwebapp.config.json
         run: cp staticwebapp.config.json dist/becas-form-main/browser/
-
-      - name: List directory after build
-        run: ls -R dist/
 
       - name: Upload build artifacts
         uses: actions/upload-artifact@v3
